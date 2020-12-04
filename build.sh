@@ -26,7 +26,7 @@ while getopts ":e:r:h:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${env}" ] || [ -z "${region}" ] ]; then
+if [ -z "${env}" ] || [ -z "${region}" ] ; then
     usage
 fi
 
