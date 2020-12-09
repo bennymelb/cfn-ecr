@@ -3,18 +3,11 @@ Description: 'This is a Sample template for creating a ecr'
 
 Parameters:
   Environment:
-    Description: The environment of this EC2 instance
+    Description: The environment of this ECR instance
     Type: String
-    AllowedValues: [dev,test,prod]
+    AllowedValues: [np-dev,np-stage,prod]
   AppName:
-    Description: The name the application where this EC2 belongs to
-    Type: String
-  Opco:
-    Description: The operating company in Danaher that owns this repo
-    Type: String
-    Default: cyt
-  Group:
-    Description: The group that resposible to maintain this repo, e.g. host
+    Description: The name the application where this ECR belongs to
     Type: String
   ImageTagMutability:
     Description: The tag mutability setting for the repo
@@ -28,17 +21,13 @@ Resources:
   ECR: 
     Type: AWS::ECR::Repository
     Properties: 
-      RepositoryName: !Sub "${Environment}-${AppName}-${Service}-repo"
+      RepositoryName: !Sub "${Environment}-${AppName}-${Service}"
       ImageScanningConfiguration: 
         scanOnPush: "true"
       Tags:
-        - Key: dhr-opco
-          Value: !Ref Opco
-        - Key: dhr-env
+        - Key: env
           Value: !Ref Environment
-        - Key: dhr-group
-          Value: !Ref Group
-        - Key: dhr-app
+        - Key: app
           Value: !Ref AppName
 Outputs:
   ECRName:
